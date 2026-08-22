@@ -26,5 +26,17 @@
                 }
             }
         ]
+    },
+    "pre-push": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "CaptainHook.Branch.NameMustMatchRegex",
+                "options": {
+                    "regex": "#^(main|master|develop)$|^(feature|feat|bugfix|fix|hotfix|release|chore)/task-\\d+(-[a-z0-9]+)*$#",
+                    "error": "A branch deve seguir: <tipo>/task-<id>-<descrição-em-minusculas-sem-acentos>. Ex: feat/task-5-inicializar"
+                }
+            }
+        ]
     }
 }
