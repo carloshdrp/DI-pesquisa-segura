@@ -1,0 +1,30 @@
+{
+    "commit-msg": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "CaptainHook.Message.MustMatchRegex",
+                "options": {
+                    "regex": "#^TASK-\\d+ (feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\\([\\w\\-\\/]+\\))?!?: .{1,88}$#",
+                    "error": "A mensagem deve seguir: TASK-<id> <tipo>(<escopo opcional>): <descrição>\nTipos válidos: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert",
+                    "success": "Commit message segue o padrão Conventional Commits!"
+                }
+            }
+        ]
+    },
+    "prepare-commit-msg": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "CaptainHook.Message.InjectIssueKeyFromBranch",
+                "options": {
+                    "regex": "#(TASK-\\d+)#",
+                    "into": "subject",
+                    "mode": "prepend",
+                    "pattern": "$1 ",
+                    "force": false
+                }
+            }
+        ]
+    }
+}
