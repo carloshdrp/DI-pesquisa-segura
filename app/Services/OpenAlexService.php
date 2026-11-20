@@ -13,6 +13,8 @@ class OpenAlexService implements BuscaContract
     public function __construct() {}
 
     /**
+     * @return array<mixed>
+     *
      * @throws ConnectionException
      */
     public function buscar(string $query): array

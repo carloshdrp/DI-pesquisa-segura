@@ -17,6 +17,9 @@ class ArXivBuscaJob implements ShouldQueue
         private string $busca
     ) {}
 
+    /**
+     * @return array<mixed>
+     */
     public function handle(ArXivService $service): array
     {
         return $service->buscar($this->busca);

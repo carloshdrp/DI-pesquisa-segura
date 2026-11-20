@@ -17,6 +17,9 @@ class OpenAlexBuscaJob implements ShouldQueue
         private string $busca
     ) {}
 
+    /**
+     * @return array<mixed>
+     */
     public function handle(OpenAlexService $service): array
     {
         return $service->buscar($this->busca);

@@ -11,6 +11,9 @@ class ArXivService implements BuscaContract
 
     public function __construct() {}
 
+    /**
+     * @return array<mixed>
+     */
     public function buscar(string $query): array
     {
         $response = Http::get(self::ENDPOINT.'query', [

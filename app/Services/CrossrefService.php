@@ -13,6 +13,8 @@ class CrossrefService implements BuscaContract
     const string ENDPOINT = 'https://api.crossref.org/v1/';
 
     /**
+     * @return array<mixed>
+     *
      * @throws ConnectionException
      */
     public function buscar(string $query): array
