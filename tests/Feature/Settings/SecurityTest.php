@@ -1,14 +1,14 @@
 <?php
 
 use App\Livewire\Settings\Security;
-use App\Models\User;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Livewire;
 
 beforeEach(function () {});
 
 test('security settings page can be rendered', function () {
-    $user = User::factory()->create();
+    $user = Usuario::factory()->create();
 
     $response = $this->actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
@@ -18,7 +18,7 @@ test('security settings page can be rendered', function () {
 });
 
 test('security settings page requires password confirmation when enabled', function () {
-    $user = User::factory()->create();
+    $user = Usuario::factory()->create();
 
     $response = $this->actingAs($user)
         ->get(route('security.edit'));
@@ -29,7 +29,7 @@ test('security settings page requires password confirmation when enabled', funct
 test('security settings page renders without two factor when feature is disabled', function () {
     config(['fortify.features' => []]);
 
-    $user = User::factory()->create();
+    $user = Usuario::factory()->create();
 
     $this->actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
@@ -42,8 +42,8 @@ test('security settings page renders without two factor when feature is disabled
 });
 
 test('password can be updated', function () {
-    $user = User::factory()->create([
-        'password' => Hash::make('password'),
+    $user = Usuario::factory()->create([
+        'ds_senha' => Hash::make('password'),
     ]);
 
     $this->actingAs($user);
@@ -56,12 +56,12 @@ test('password can be updated', function () {
 
     $response->assertHasNoErrors();
 
-    expect(Hash::check('new-password', $user->refresh()->password))->toBeTrue();
+    expect(Hash::check('new-password', $user->refresh()->ds_senha))->toBeTrue();
 });
 
 test('correct password must be provided to update password', function () {
-    $user = User::factory()->create([
-        'password' => Hash::make('password'),
+    $user = Usuario::factory()->create([
+        'ds_senha' => Hash::make('password'),
     ]);
 
     $this->actingAs($user);
