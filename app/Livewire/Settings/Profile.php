@@ -22,8 +22,8 @@ class Profile extends Component
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $this->name = Auth::user()->nm_usuario;
+        $this->email = Auth::user()->ds_email;
     }
 
     /**
@@ -33,15 +33,12 @@ class Profile extends Component
     {
         $user = Auth::user();
 
-        $validated = $this->validate($this->profileRules($user->id));
+        $validated = $this->validate($this->profileRules($user->id_usuario));
 
-        $user->fill($validated);
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
+        $user->update([
+            'nm_usuario' => $validated['name'],
+            'ds_email' => $validated['email'],
+        ]);
 
         Flux::toast(variant: 'success', text: __('Profile updated.'));
     }

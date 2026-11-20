@@ -6,7 +6,6 @@ use App\Concerns\PasswordValidationRules;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -20,11 +19,6 @@ class Security extends Component
     public string $password = '';
 
     public string $password_confirmation = '';
-
-    /**
-     * Mount the component.
-     */
-    public function mount(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void {}
 
     /**
      * Update the password for the currently authenticated user.
@@ -43,7 +37,7 @@ class Security extends Component
         }
 
         Auth::user()->update([
-            'password' => $validated['password'],
+            'ds_senha' => $validated['password'],
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');

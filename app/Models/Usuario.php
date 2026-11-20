@@ -2,10 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Database\Factories\UsuarioFactory;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
-class Usuario extends Model
+class Usuario extends Authenticatable implements CanResetPasswordContract
 {
+    /** @use HasFactory<UsuarioFactory> */
+    use CanResetPassword, HasFactory, Notifiable;
+
     protected $table = 'tb_usuario';
 
     protected $primaryKey = 'id_usuario';
@@ -23,6 +32,11 @@ class Usuario extends Model
         'dt_referencia_contador',
     ];
 
+    protected $hidden = [
+        'ds_senha',
+        'remember_token',
+    ];
+
     protected function casts(): array
     {
         return [
@@ -33,5 +47,29 @@ class Usuario extends Model
             'nr_buscas_hoje' => 'integer',
             'dt_referencia_contador' => 'date',
         ];
+    }
+
+    public function getAuthPasswordName(): string
+    {
+        return 'ds_senha';
+    }
+
+    public function getEmailForPasswordReset(): string
+    {
+        return $this->ds_email;
+    }
+
+    public function routeNotificationForMail(): string
+    {
+        return $this->ds_email;
+    }
+
+    public function initials(): string
+    {
+        $initials = Str::initials($this->nm_usuario, true);
+
+        return Str::length($initials) > 1
+            ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
+            : $initials;
     }
 }

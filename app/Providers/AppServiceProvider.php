@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Auth\UsuarioUserProvider;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +26,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureAuth();
+    }
+
+    /**
+     * Register the user provider that maps credentials to tb_usuario.
+     */
+    protected function configureAuth(): void
+    {
+        Auth::provider('usuario', fn ($app, array $config) => new UsuarioUserProvider(
+            $app['hash'],
+            $config['model'],
+        ));
     }
 
     /**
