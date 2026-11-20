@@ -20,7 +20,7 @@ cp .env.example .env
 Verificações antes de cada commit:
 
 ```bash
-./vendor/bin/sail test 2>&1 | grep -v Deprecated      # o PHP 8.6 imprime avisos de depreciação do framework
+./vendor/bin/sail test
 ./vendor/bin/sail pint --dirty
 ./vendor/bin/sail php vendor/bin/phpstan analyse --memory-limit=1G
 ```
