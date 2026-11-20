@@ -4,6 +4,7 @@ use App\Http\Controllers\BookmarkGrupoController;
 use App\Http\Controllers\BuscaController;
 use App\Http\Controllers\CompartilhadoController;
 use App\Http\Controllers\GrupoBookmarkController;
+use App\Http\Controllers\HistoricoController;
 use App\Http\Controllers\LinkCompartilhamentoController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::patch('bookmarks/{bookmark}/grupo', [BookmarkGrupoController::class, 'update'])
         ->name('bookmarks.grupo.update');
+
+    Route::get('historico', [HistoricoController::class, 'index'])->name('historico.index');
+    Route::delete('historico', [HistoricoController::class, 'limpar'])->name('historico.limpar');
+    Route::delete('historico/{busca}', [HistoricoController::class, 'destroy'])->name('historico.destroy');
 
     Route::post('compartilhamentos', [LinkCompartilhamentoController::class, 'store'])
         ->name('compartilhamentos.store');
