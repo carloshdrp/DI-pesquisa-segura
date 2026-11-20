@@ -151,7 +151,7 @@ task-5 feat(auth): adiciona validação de login
 
 ## Matriz de requisitos
 
-Situação do backend, conforme `Levantamento_Requisitos.pdf`. "Telas" são do gkOdin (issues #12, #13 e #32).
+Situação do backend, conforme `Levantamento_Requisitos.pdf`.
 
 | Requisito | Situação | Onde |
 |---|---|---|
@@ -169,7 +169,7 @@ Situação do backend, conforme `Levantamento_Requisitos.pdf`. "Telas" são do g
 | RF12 Tópicos mais pesquisados | Pronto (exibição: #13) | `busca:topicos`, `GET /topicos` |
 | RF13 Nova coleta com poucos resultados | Pronto | `ColetaPorTermoService`, `ColetarTermoJob` |
 | RF14 Direcionar ao site de origem | Pronto (a resposta traz a URL; sem hospedar conteúdo) | `ResultadoBuscaResource` |
-| RNF01 Responsivo | Pendente: depende das telas (gkOdin) | — |
+| RNF01 Responsivo | Pendente: depende das telas | — |
 | RNF02 Respeitar robots.txt | Pronto | `fl_robots_permitido`, `Fonte::coletaveis()`, `ColetorService` |
 | RNF03 Senhas criptografadas | Pronto | hash do Laravel em `ds_senha` |
 | RNF04 Resposta rápida sem fontes externas | Pronto | busca só no índice local |
