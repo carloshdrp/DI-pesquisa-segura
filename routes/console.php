@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('busca:topicos')->hourly()->withoutOverlapping();
+Schedule::command('coleta:fontes')->dailyAt('03:00')->withoutOverlapping();

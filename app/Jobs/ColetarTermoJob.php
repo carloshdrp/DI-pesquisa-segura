@@ -31,9 +31,7 @@ class ColetarTermoJob implements ShouldQueue
         $fila = FilaColeta::findOrFail($this->idFilaColeta);
         $fila->update(['tp_status' => StatusColeta::Executando]);
 
-        Fonte::query()
-            ->where('fl_ativa', true)
-            ->where('fl_robots_permitido', true)
+        Fonte::coletaveis()
             ->each(fn (Fonte $fonte) => ColetarFonteJob::agendar($fonte));
 
         $fila->update(['tp_status' => StatusColeta::Concluida, 'dt_conclusao' => now()]);
