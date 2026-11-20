@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\LinkCompartilhamentoFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -63,5 +64,23 @@ class LinkCompartilhamento extends Model
     public function estaRevogado(): bool
     {
         return $this->dt_revogacao !== null;
+    }
+
+    /**
+     * @param  Builder<LinkCompartilhamento>  $query
+     */
+    public function scopeAtivos(Builder $query): void
+    {
+        $query->whereNull('dt_revogacao');
+    }
+
+    /**
+     * Id do usuário dono do favorito ou do grupo compartilhado.
+     */
+    public function idUsuarioDono(): ?int
+    {
+        return $this->id_bookmark !== null
+            ? $this->bookmark?->id_usuario
+            : $this->grupo?->id_usuario;
     }
 }
