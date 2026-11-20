@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\BookmarkGrupoController;
 use App\Http\Controllers\BuscaController;
 use App\Http\Controllers\CompartilhadoController;
@@ -24,6 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('grupos', GrupoBookmarkController::class)
         ->parameters(['grupos' => 'grupo'])
         ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::get('bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
+    Route::put('bookmarks/{pagina}', [BookmarkController::class, 'favoritar'])->name('bookmarks.favoritar');
+    Route::delete('bookmarks/{pagina}', [BookmarkController::class, 'desfavoritar'])->name('bookmarks.desfavoritar');
 
     Route::patch('bookmarks/{bookmark}/grupo', [BookmarkGrupoController::class, 'update'])
         ->name('bookmarks.grupo.update');
