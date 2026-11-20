@@ -22,6 +22,15 @@ return [
     'recoleta_intervalo_horas' => (int) env('BUSCA_RECOLETA_INTERVALO_HORAS', 6),
 
     /*
+    | Tópicos mais pesquisados (RF12): período considerado e quantidade guardada.
+    | O comando busca:topicos recalcula a lista a cada hora.
+    */
+    'topicos' => [
+        'dias' => (int) env('BUSCA_TOPICOS_DIAS', 7),
+        'limite' => (int) env('BUSCA_TOPICOS_LIMITE', 10),
+    ],
+
+    /*
     | Termos e expressões que não podem ser buscados. A comparação ignora
     | maiúsculas, acentos e pontuação, e só considera palavras inteiras.
     | Lista inicial conservadora: a equipe deve revisar e ampliar.

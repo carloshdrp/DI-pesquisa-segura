@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Database\Factories\FonteFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +37,17 @@ class Fonte extends Model
             'fl_ativa' => 'boolean',
             'dt_criacao' => 'datetime',
         ];
+    }
+
+    /**
+     * Só fontes ativas e com robots liberados podem ser coletadas (RNF02).
+     *
+     * @param  Builder<Fonte>  $consulta
+     */
+    #[Scope]
+    protected function coletaveis(Builder $consulta): void
+    {
+        $consulta->where('fl_ativa', true)->where('fl_robots_permitido', true);
     }
 
     /**

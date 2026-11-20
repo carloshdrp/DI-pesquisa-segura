@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(FonteSeeder::class);
+
         Usuario::factory()->create([
             'nm_usuario' => 'Test User',
             'ds_email' => 'test@example.com',
