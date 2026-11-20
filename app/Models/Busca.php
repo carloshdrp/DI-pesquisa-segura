@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Busca extends Model
 {
@@ -30,7 +31,10 @@ class Busca extends Model
         ];
     }
 
-    public function usuario()
+    /**
+     * @return BelongsTo<Usuario, $this>
+     */
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(
             Usuario::class,
@@ -39,7 +43,10 @@ class Busca extends Model
         );
     }
 
-    public function sessaoAnonima()
+    /**
+     * @return BelongsTo<SessaoAnonima, $this>
+     */
+    public function sessaoAnonima(): BelongsTo
     {
         return $this->belongsTo(
             SessaoAnonima::class,
