@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\OrigemColeta;
+use App\Enums\StatusColeta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -25,6 +27,8 @@ class FilaColeta extends Model
     protected function casts(): array
     {
         return [
+            'tp_origem' => OrigemColeta::class,
+            'tp_status' => StatusColeta::class,
             'dt_agendamento' => 'datetime',
             'dt_conclusao' => 'datetime',
             'id_fonte' => 'integer',
