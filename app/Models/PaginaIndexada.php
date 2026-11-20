@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Database\Factories\PaginaIndexadaFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PaginaIndexada extends Model
 {
+    /** @use HasFactory<PaginaIndexadaFactory> */
+    use HasFactory;
+
     protected $table = 'tb_pagina_indexada';
 
     protected $primaryKey = 'id_pagina_indexada';

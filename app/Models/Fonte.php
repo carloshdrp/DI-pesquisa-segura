@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Database\Factories\FonteFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Fonte extends Model
 {
+    /** @use HasFactory<FonteFactory> */
+    use HasFactory;
+
     protected $table = 'tb_fonte';
 
     protected $primaryKey = 'id_fonte';
