@@ -7,6 +7,7 @@ use App\Http\Controllers\CompartilhadoController;
 use App\Http\Controllers\GrupoBookmarkController;
 use App\Http\Controllers\HistoricoController;
 use App\Http\Controllers\LinkCompartilhamentoController;
+use App\Http\Controllers\TopicoController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -14,6 +15,8 @@ Route::view('/', 'welcome')->name('home');
 Route::get('busca', [BuscaController::class, 'index'])
     ->middleware('limite.busca')
     ->name('busca.index');
+
+Route::get('topicos', TopicoController::class)->name('topicos.index');
 
 Route::get('compartilhado/{token}', [CompartilhadoController::class, 'show'])
     ->middleware('throttle:60,1')
