@@ -34,6 +34,11 @@ class ColetarTermoJob implements ShouldQueue
         Fonte::coletaveis()
             ->each(fn (Fonte $fonte) => ColetarFonteJob::agendar($fonte));
 
+        // As APIs também são consultadas pelo termo; o indexador ignora fontes não liberadas.
+        foreach ([OpenAlexBuscaJob::class, ArXivBuscaJob::class, CrossrefBuscaJob::class] as $job) {
+            $job::dispatch((string) $fila->ds_termo_busca);
+        }
+
         $fila->update(['tp_status' => StatusColeta::Concluida, 'dt_conclusao' => now()]);
     }
 

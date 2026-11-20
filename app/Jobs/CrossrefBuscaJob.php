@@ -2,22 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Contracts\BuscaContract;
 use App\Services\CrossrefService;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 
-class CrossrefBuscaJob implements ShouldQueue
+class CrossrefBuscaJob extends BuscaExternaJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable;
-
-    public function __construct(
-        private string $busca
-    ) {}
-
-    public function handle(CrossrefService $service): void
+    protected function api(): BuscaContract
     {
-        $service->buscar($this->busca);
+        return app(CrossrefService::class);
     }
 }

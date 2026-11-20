@@ -2,26 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Contracts\BuscaContract;
 use App\Services\OpenAlexService;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
-class OpenAlexBuscaJob implements ShouldQueue
+class OpenAlexBuscaJob extends BuscaExternaJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    public function __construct(
-        private string $busca
-    ) {}
-
-    /**
-     * @return array<mixed>
-     */
-    public function handle(OpenAlexService $service): array
+    protected function api(): BuscaContract
     {
-        return $service->buscar($this->busca);
+        return app(OpenAlexService::class);
     }
 }
