@@ -37,10 +37,16 @@ class FiltroBuscaService
      */
     private function bloqueados(): array
     {
-        return collect(config('busca.termos_bloqueados', []))
-            ->map(fn (string $termo) => $this->normalizar($termo))
-            ->filter()
-            ->values()
-            ->all();
+        $bloqueados = [];
+
+        foreach ((array) config('busca.termos_bloqueados', []) as $termo) {
+            $normalizado = $this->normalizar((string) $termo);
+
+            if ($normalizado !== '') {
+                $bloqueados[] = $normalizado;
+            }
+        }
+
+        return $bloqueados;
     }
 }
