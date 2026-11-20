@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\BookmarkGrupoController;
+use App\Http\Controllers\BuscaController;
 use App\Http\Controllers\CompartilhadoController;
 use App\Http\Controllers\GrupoBookmarkController;
 use App\Http\Controllers\LinkCompartilhamentoController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+Route::get('busca', [BuscaController::class, 'index'])
+    ->middleware('limite.busca')
+    ->name('busca.index');
 
 Route::get('compartilhado/{token}', [CompartilhadoController::class, 'show'])
     ->middleware('throttle:60,1')

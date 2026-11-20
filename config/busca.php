@@ -13,6 +13,15 @@ return [
     'limite_anonimo' => (int) env('BUSCA_LIMITE_ANONIMO', 10),
 
     /*
+    | Resultados por página e quantidade mínima de resultados. Abaixo do mínimo,
+    | a busca dispara uma nova coleta em segundo plano (RF13), no máximo uma vez
+    | por termo dentro do intervalo de recoleta.
+    */
+    'por_pagina' => (int) env('BUSCA_POR_PAGINA', 10),
+    'minimo_resultados' => (int) env('BUSCA_MINIMO_RESULTADOS', 3),
+    'recoleta_intervalo_horas' => (int) env('BUSCA_RECOLETA_INTERVALO_HORAS', 6),
+
+    /*
     | Termos e expressões que não podem ser buscados. A comparação ignora
     | maiúsculas, acentos e pontuação, e só considera palavras inteiras.
     | Lista inicial conservadora: a equipe deve revisar e ampliar.

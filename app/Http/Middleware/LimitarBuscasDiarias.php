@@ -15,6 +15,9 @@ class LimitarBuscasDiarias
 {
     public const COOKIE_SESSAO = 'sessao_anonima';
 
+    /** Atributo da requisição com a SessaoAnonima do visitante (ou null). */
+    public const ATRIBUTO_SESSAO = 'sessao_anonima';
+
     public function __construct(private readonly LimiteBuscaService $limites) {}
 
     public function handle(Request $request, Closure $next): Response
@@ -22,7 +25,12 @@ class LimitarBuscasDiarias
         $usuario = $request->user();
         $sessao = $usuario ? null : $this->sessaoAnonima($request);
 
-        if (! $this->limites->consumir($usuario ?? $sessao)) {
+        $request->attributes->set(self::ATRIBUTO_SESSAO, $sessao);
+
+        // Navegar pelas páginas de uma busca já feita não gasta outra busca do dia.
+        $consome = $request->integer('page', 1) <= 1;
+
+        if ($consome && ! $this->limites->consumir($usuario ?? $sessao)) {
             throw new HttpException(
                 429,
                 __('Você atingiu o limite diário de buscas. Tente novamente amanhã.'),
