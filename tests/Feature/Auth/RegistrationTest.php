@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Usuario;
 use Laravel\Fortify\Features;
 
 beforeEach(function () {
@@ -24,4 +25,12 @@ test('new users can register', function () {
         ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
+
+    $usuario = Usuario::where('ds_email', 'test@example.com')->firstOrFail();
+
+    expect($usuario->nm_usuario)->toBe('John Doe')
+        ->and($usuario->tp_perfil)->toBeFalse()
+        ->and($usuario->nr_limite_busca_dia)->toBe(config('busca.limite_autenticado'))
+        ->and($usuario->nr_buscas_hoje)->toBe(0)
+        ->and($usuario->ds_senha)->not->toBe('password');
 });

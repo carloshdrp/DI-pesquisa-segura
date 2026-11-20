@@ -69,7 +69,7 @@ return [
 
     'prefix' => env(
         'HORIZON_PREFIX',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_horizon:'
+        Str::slug((string) env('APP_NAME', 'laravel'), '_').'_horizon:'
     ),
 
     /*
@@ -210,6 +210,19 @@ return [
             'timeout' => 60,
             'nice' => 0,
         ],
+
+        'supervisor-coleta' => [
+            'connection' => 'redis',
+            'queue' => ['coleta'],
+            'balance' => 'simple',
+            'maxProcesses' => 1,
+            'maxTime' => 0,
+            'maxJobs' => 0,
+            'memory' => 256,
+            'tries' => 2,
+            'timeout' => 600,
+            'nice' => 10,
+        ],
     ],
 
     'environments' => [
@@ -218,6 +231,10 @@ return [
                 'maxProcesses' => 10,
                 'balanceMaxShift' => 1,
                 'balanceCooldown' => 3,
+            ],
+
+            'supervisor-coleta' => [
+                'maxProcesses' => 2,
             ],
         ],
 

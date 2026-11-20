@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Database\Factories\SessaoAnonimaFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class SessaoAnonima extends Model
 {
+    /** @use HasFactory<SessaoAnonimaFactory> */
+    use HasFactory;
+
     protected $table = 'tb_sessao_anonima';
 
     protected $primaryKey = 'id_sessao_anonima';

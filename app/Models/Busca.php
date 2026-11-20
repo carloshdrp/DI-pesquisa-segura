@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\BuscaFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Busca extends Model
 {
+    /** @use HasFactory<BuscaFactory> */
+    use HasFactory;
+
     protected $table = 'tb_busca';
 
     protected $primaryKey = 'id_busca';
@@ -30,7 +36,10 @@ class Busca extends Model
         ];
     }
 
-    public function usuario()
+    /**
+     * @return BelongsTo<Usuario, $this>
+     */
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(
             Usuario::class,
@@ -39,7 +48,10 @@ class Busca extends Model
         );
     }
 
-    public function sessaoAnonima()
+    /**
+     * @return BelongsTo<SessaoAnonima, $this>
+     */
+    public function sessaoAnonima(): BelongsTo
     {
         return $this->belongsTo(
             SessaoAnonima::class,
