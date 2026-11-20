@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\LinkCompartilhamento;
 use Illuminate\Contracts\View\View;
 
@@ -17,13 +18,18 @@ class CompartilhadoController extends Controller
             ->with(['bookmark.paginaIndexada.fonte', 'grupo.bookmarks.paginaIndexada.fonte'])
             ->firstOrFail();
 
-        $paginas = $link->id_bookmark !== null
-            ? collect([$link->bookmark->paginaIndexada])
-            : $link->grupo->bookmarks->map->paginaIndexada;
+        if ($link->id_bookmark !== null) {
+            $pagina = $link->bookmark->paginaIndexada;
+
+            return view('compartilhado.show', [
+                'titulo' => $pagina->ds_titulo,
+                'paginas' => collect([$pagina]),
+            ]);
+        }
 
         return view('compartilhado.show', [
-            'titulo' => $link->grupo?->nm_grupo ?? $link->bookmark->paginaIndexada->ds_titulo,
-            'paginas' => $paginas,
+            'titulo' => $link->grupo->nm_grupo,
+            'paginas' => $link->grupo->bookmarks->map(fn (Bookmark $bookmark) => $bookmark->paginaIndexada),
         ]);
     }
 }

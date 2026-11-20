@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\FonteFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Fonte extends Model
 {
@@ -36,7 +37,10 @@ class Fonte extends Model
         ];
     }
 
-    public function paginasIndexadas()
+    /**
+     * @return HasMany<PaginaIndexada, $this>
+     */
+    public function paginasIndexadas(): HasMany
     {
         return $this->hasMany(
             PaginaIndexada::class,
@@ -45,7 +49,10 @@ class Fonte extends Model
         );
     }
 
-    public function filasColeta()
+    /**
+     * @return HasMany<FilaColeta, $this>
+     */
+    public function filasColeta(): HasMany
     {
         return $this->hasMany(
             FilaColeta::class,

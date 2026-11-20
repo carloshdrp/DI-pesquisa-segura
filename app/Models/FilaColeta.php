@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FilaColeta extends Model
 {
@@ -30,7 +31,10 @@ class FilaColeta extends Model
         ];
     }
 
-    public function fonte()
+    /**
+     * @return BelongsTo<Fonte, $this>
+     */
+    public function fonte(): BelongsTo
     {
         return $this->belongsTo(
             Fonte::class,

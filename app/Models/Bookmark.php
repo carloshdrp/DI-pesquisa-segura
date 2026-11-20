@@ -36,7 +36,10 @@ class Bookmark extends Model
         ];
     }
 
-    public function usuario()
+    /**
+     * @return BelongsTo<Usuario, $this>
+     */
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(
             Usuario::class,
@@ -45,7 +48,10 @@ class Bookmark extends Model
         );
     }
 
-    public function paginaIndexada()
+    /**
+     * @return BelongsTo<PaginaIndexada, $this>
+     */
+    public function paginaIndexada(): BelongsTo
     {
         return $this->belongsTo(
             PaginaIndexada::class,

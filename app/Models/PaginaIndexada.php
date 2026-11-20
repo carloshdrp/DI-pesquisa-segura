@@ -5,6 +5,8 @@ namespace App\Models;
 use Database\Factories\PaginaIndexadaFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PaginaIndexada extends Model
 {
@@ -36,7 +38,10 @@ class PaginaIndexada extends Model
         ];
     }
 
-    public function fonte()
+    /**
+     * @return BelongsTo<Fonte, $this>
+     */
+    public function fonte(): BelongsTo
     {
         return $this->belongsTo(
             Fonte::class,
@@ -45,7 +50,10 @@ class PaginaIndexada extends Model
         );
     }
 
-    public function bookmarks()
+    /**
+     * @return HasMany<Bookmark, $this>
+     */
+    public function bookmarks(): HasMany
     {
         return $this->hasMany(
             Bookmark::class,
